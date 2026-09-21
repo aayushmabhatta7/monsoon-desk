@@ -320,11 +320,18 @@ function applyTheme(group, isDay){
    JS 3. API CALLS
    ============================================================ */
 async function geocode(name){
-  const url = `${GEO_URL}?name=${encodeURIComponent(name)}&count=5&language=en&format=json`;
+  // English names, wider result set so Indian towns aren't crowded out.
+  const url = `${GEO_URL}?name=${encodeURIComponent(name)}&count=10&language=en&format=json`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Search failed. Please try again.");
   const json = await res.json();
-  return json.results || [];
+  const results = json.results || [];
+  // India-first ordering, then by population so big cities lead.
+  return results
+    .sort((a, b) =>
+      (b.country_code === "IN") - (a.country_code === "IN") ||
+      (b.population || 0) - (a.population || 0))
+    .slice(0, 5);
 }
 
 async function reverseName(lat, lon){
