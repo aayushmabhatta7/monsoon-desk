@@ -171,16 +171,20 @@ footer{text-align:center;color:var(--fg-dim);font-size:.8rem;margin-top:10px}
 
   <!-- ===================== HTML STRUCTURE ===================== -->
   <header>
-    <div class="brand"><span class="dot"></span> Skycast</div>
+    <div class="masthead">
+      <h1 class="brand">Monsoon <em>Desk</em></h1>
+      <div class="kicker">Live weather · India &amp; worldwide</div>
+    </div>
     <div class="tools">
       <div class="search">
         <label class="sr" for="q">Search city</label>
-        <input id="q" type="search" placeholder="Search a city…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="suggest" />
+        <input id="q" type="search" placeholder="Search a city — Delhi, Pune, Guwahati…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="suggest" />
         <div id="suggest" class="suggest" role="listbox"></div>
       </div>
       <button id="geo" class="icon-btn" title="Use my location">📍 <span class="sr">Use my location</span></button>
       <button id="unit" class="icon-btn unit" title="Toggle units"><span id="uC" class="on">°C</span>/<span id="uF">°F</span></button>
     </div>
+    <div class="chips" id="chips"><span class="label">Indian cities</span></div>
   </header>
 
   <div id="status" class="card status hidden"></div>
