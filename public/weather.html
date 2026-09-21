@@ -541,13 +541,35 @@ $("uF").classList.toggle("on", unit === "F");
 window.addEventListener("online", () => { if (place) load(place); });
 
 /* ============================================================
-   JS 7. BOOT — restore last city from localStorage
+   JS 7. QUICK INDIAN CITIES
+   ============================================================ */
+const INDIA_CITIES = [
+  { name:"New Delhi", admin1:"Delhi", country:"India", latitude:28.6139, longitude:77.2090 },
+  { name:"Mumbai", admin1:"Maharashtra", country:"India", latitude:19.0760, longitude:72.8777 },
+  { name:"Bengaluru", admin1:"Karnataka", country:"India", latitude:12.9716, longitude:77.5946 },
+  { name:"Kolkata", admin1:"West Bengal", country:"India", latitude:22.5726, longitude:88.3639 },
+  { name:"Chennai", admin1:"Tamil Nadu", country:"India", latitude:13.0827, longitude:80.2707 },
+  { name:"Jaipur", admin1:"Rajasthan", country:"India", latitude:26.9124, longitude:75.7873 },
+  { name:"Shimla", admin1:"Himachal Pradesh", country:"India", latitude:31.1048, longitude:77.1734 }
+];
+const chips = $("chips");
+INDIA_CITIES.forEach(city => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "chip";
+  b.textContent = city.name;
+  b.addEventListener("click", () => { q.value = city.name; closeSuggest(); load(city); });
+  chips.appendChild(b);
+});
+
+/* ============================================================
+   JS 8. BOOT — restore last city, else New Delhi
    ============================================================ */
 (function init(){
   let saved = null;
   try{ saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); }catch(_){}
   if (saved && saved.latitude != null){ q.value = saved.name; load(saved); }
-  else { load({ name:"London", country:"United Kingdom", latitude:51.5072, longitude:-0.1276 }); }
+  else { q.value = INDIA_CITIES[0].name; load(INDIA_CITIES[0]); }
 })();
 </script>
 </body>
