@@ -42,28 +42,39 @@ button{font:inherit;color:inherit;cursor:pointer}
 /* ============================================================
    2. HEADER / SEARCH
    ============================================================ */
-header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:20px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px;font-size:1.15rem}
-.brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
-.tools{display:flex;gap:10px;flex:1 1 320px;min-width:260px;position:relative}
-.search{flex:1;position:relative}
+header{border-bottom:1px solid var(--stroke);padding-bottom:16px;margin-bottom:22px}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:"Instrument Serif",Georgia,serif;font-size:1.9rem;letter-spacing:.5px}
+.brand em{color:var(--accent);font-style:italic}
+.kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.22em;color:var(--fg-dim)}
+.tools{display:flex;gap:10px;margin-top:14px;position:relative;flex-wrap:wrap}
+.search{flex:1 1 240px;position:relative}
 input[type=search]{
-  width:100%;padding:13px 16px;border-radius:999px;border:1px solid var(--stroke);
+  width:100%;padding:12px 14px;border-radius:var(--radius);border:1px solid var(--stroke);
+  border-bottom:2px solid var(--accent);
   background:var(--card);color:var(--fg);font-size:1rem;outline:none;
   transition:background .25s,border-color .25s;
 }
 input[type=search]::placeholder{color:var(--fg-dim)}
-input[type=search]:focus{border-color:var(--accent);background:var(--card-strong)}
+input[type=search]:focus{background:var(--card-strong)}
 .icon-btn{
-  border:1px solid var(--stroke);background:var(--card);border-radius:999px;
-  padding:0 16px;height:48px;display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--stroke);background:transparent;border-radius:var(--radius);
+  padding:0 14px;height:46px;display:inline-flex;align-items:center;gap:8px;
   transition:transform .15s,background .25s;white-space:nowrap;
 }
 .icon-btn:hover{background:var(--card-strong)}
-.icon-btn:active{transform:scale(.96)}
-.unit{font-weight:700}
-.unit span{opacity:.5}
+.icon-btn:active{transform:scale(.97)}
+.unit{font-weight:700;letter-spacing:.04em}
+.unit span{opacity:.45}
 .unit span.on{opacity:1;color:var(--accent)}
+/* quick India city chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.chips .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-dim);margin-right:2px}
+.chip{
+  border:1px solid var(--stroke);background:transparent;border-radius:999px;
+  padding:6px 13px;font-size:.85rem;transition:background .2s,border-color .2s;
+}
+.chip:hover{background:var(--card-strong);border-color:var(--accent)}
 
 /* autocomplete */
 .suggest{
