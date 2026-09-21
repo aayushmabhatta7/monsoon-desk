@@ -3,26 +3,29 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Skycast — Weather</title>
+<title>Monsoon Desk — Weather for India &amp; beyond</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
 <style>
 /* ============================================================
    1. THEME TOKENS + BASE
    ============================================================ */
 :root{
-  --bg-a:#1b3b6f; --bg-b:#0b1f3a;
-  --card:rgba(255,255,255,.12);
-  --card-strong:rgba(255,255,255,.2);
-  --stroke:rgba(255,255,255,.22);
-  --fg:#f7fafc; --fg-dim:rgba(247,250,252,.72);
-  --accent:#ffd166;
-  --radius:18px;
-  --shadow:0 18px 40px rgba(0,0,0,.28);
+  --bg-a:#0d2b2a; --bg-b:#071a1c;
+  --card:rgba(255,252,244,.07);
+  --card-strong:rgba(255,252,244,.13);
+  --stroke:rgba(255,246,224,.18);
+  --fg:#fdf8ee; --fg-dim:rgba(253,248,238,.62);
+  --accent:#e0a53c;
+  --radius:4px;
+  --shadow:0 12px 30px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  font-family:"Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  font-family:"Work Sans",system-ui,-apple-system,Arial,sans-serif;
   color:var(--fg);
   background:linear-gradient(160deg,var(--bg-a),var(--bg-b));
   background-attachment:fixed;
@@ -30,36 +33,48 @@ body{
   min-height:100%;
   -webkit-font-smoothing:antialiased;
 }
-.wrap{max-width:1040px;margin:0 auto;padding:22px 16px 56px}
-h1,h2,h3{margin:0;line-height:1.15}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 56px}
+h1,h2,h3{margin:0;line-height:1.1;font-family:"Instrument Serif",Georgia,serif;font-weight:400;letter-spacing:.2px}
+h3{font-size:1.45rem}
 button{font:inherit;color:inherit;cursor:pointer}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
 /* ============================================================
    2. HEADER / SEARCH
    ============================================================ */
-header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:20px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.5px;font-size:1.15rem}
-.brand .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent)}
-.tools{display:flex;gap:10px;flex:1 1 320px;min-width:260px;position:relative}
-.search{flex:1;position:relative}
+header{border-bottom:1px solid var(--stroke);padding-bottom:16px;margin-bottom:22px}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:"Instrument Serif",Georgia,serif;font-size:1.9rem;letter-spacing:.5px}
+.brand em{color:var(--accent);font-style:italic}
+.kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.22em;color:var(--fg-dim)}
+.tools{display:flex;gap:10px;margin-top:14px;position:relative;flex-wrap:wrap}
+.search{flex:1 1 240px;position:relative}
 input[type=search]{
-  width:100%;padding:13px 16px;border-radius:999px;border:1px solid var(--stroke);
+  width:100%;padding:12px 14px;border-radius:var(--radius);border:1px solid var(--stroke);
+  border-bottom:2px solid var(--accent);
   background:var(--card);color:var(--fg);font-size:1rem;outline:none;
   transition:background .25s,border-color .25s;
 }
 input[type=search]::placeholder{color:var(--fg-dim)}
-input[type=search]:focus{border-color:var(--accent);background:var(--card-strong)}
+input[type=search]:focus{background:var(--card-strong)}
 .icon-btn{
-  border:1px solid var(--stroke);background:var(--card);border-radius:999px;
-  padding:0 16px;height:48px;display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--stroke);background:transparent;border-radius:var(--radius);
+  padding:0 14px;height:46px;display:inline-flex;align-items:center;gap:8px;
   transition:transform .15s,background .25s;white-space:nowrap;
 }
 .icon-btn:hover{background:var(--card-strong)}
-.icon-btn:active{transform:scale(.96)}
-.unit{font-weight:700}
-.unit span{opacity:.5}
+.icon-btn:active{transform:scale(.97)}
+.unit{font-weight:700;letter-spacing:.04em}
+.unit span{opacity:.45}
 .unit span.on{opacity:1;color:var(--accent)}
+/* quick India city chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.chips .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-dim);margin-right:2px}
+.chip{
+  border:1px solid var(--stroke);background:transparent;border-radius:999px;
+  padding:6px 13px;font-size:.85rem;transition:background .2s,border-color .2s;
+}
+.chip:hover{background:var(--card-strong);border-color:var(--accent)}
 
 /* autocomplete */
 .suggest{
@@ -156,16 +171,20 @@ footer{text-align:center;color:var(--fg-dim);font-size:.8rem;margin-top:10px}
 
   <!-- ===================== HTML STRUCTURE ===================== -->
   <header>
-    <div class="brand"><span class="dot"></span> Skycast</div>
+    <div class="masthead">
+      <h1 class="brand">Monsoon <em>Desk</em></h1>
+      <div class="kicker">Live weather · India &amp; worldwide</div>
+    </div>
     <div class="tools">
       <div class="search">
         <label class="sr" for="q">Search city</label>
-        <input id="q" type="search" placeholder="Search a city…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="suggest" />
+        <input id="q" type="search" placeholder="Search a city — Delhi, Pune, Guwahati…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="suggest" />
         <div id="suggest" class="suggest" role="listbox"></div>
       </div>
       <button id="geo" class="icon-btn" title="Use my location">📍 <span class="sr">Use my location</span></button>
       <button id="unit" class="icon-btn unit" title="Toggle units"><span id="uC" class="on">°C</span>/<span id="uF">°F</span></button>
     </div>
+    <div class="chips" id="chips"><span class="label">Indian cities</span></div>
   </header>
 
   <div id="status" class="card status hidden"></div>
@@ -210,7 +229,7 @@ footer{text-align:center;color:var(--fg-dim);font-size:.8rem;margin-top:10px}
     </section>
   </main>
 
-  <footer>Data by Open-Meteo · times shown in the location's local time</footer>
+  <footer>Readings from Open-Meteo · clocks follow each city's local time</footer>
 </div>
 
 <script>
@@ -301,11 +320,18 @@ function applyTheme(group, isDay){
    JS 3. API CALLS
    ============================================================ */
 async function geocode(name){
-  const url = `${GEO_URL}?name=${encodeURIComponent(name)}&count=5&language=en&format=json`;
+  // English names, wider result set so Indian towns aren't crowded out.
+  const url = `${GEO_URL}?name=${encodeURIComponent(name)}&count=10&language=en&format=json`;
   const res = await fetch(url);
   if (!res.ok) throw new Error("Search failed. Please try again.");
   const json = await res.json();
-  return json.results || [];
+  const results = json.results || [];
+  // India-first ordering, then by population so big cities lead.
+  return results
+    .sort((a, b) =>
+      (b.country_code === "IN") - (a.country_code === "IN") ||
+      (b.population || 0) - (a.population || 0))
+    .slice(0, 5);
 }
 
 async function reverseName(lat, lon){
@@ -515,13 +541,35 @@ $("uF").classList.toggle("on", unit === "F");
 window.addEventListener("online", () => { if (place) load(place); });
 
 /* ============================================================
-   JS 7. BOOT — restore last city from localStorage
+   JS 7. QUICK INDIAN CITIES
+   ============================================================ */
+const INDIA_CITIES = [
+  { name:"New Delhi", admin1:"Delhi", country:"India", latitude:28.6139, longitude:77.2090 },
+  { name:"Mumbai", admin1:"Maharashtra", country:"India", latitude:19.0760, longitude:72.8777 },
+  { name:"Bengaluru", admin1:"Karnataka", country:"India", latitude:12.9716, longitude:77.5946 },
+  { name:"Kolkata", admin1:"West Bengal", country:"India", latitude:22.5726, longitude:88.3639 },
+  { name:"Chennai", admin1:"Tamil Nadu", country:"India", latitude:13.0827, longitude:80.2707 },
+  { name:"Jaipur", admin1:"Rajasthan", country:"India", latitude:26.9124, longitude:75.7873 },
+  { name:"Shimla", admin1:"Himachal Pradesh", country:"India", latitude:31.1048, longitude:77.1734 }
+];
+const chips = $("chips");
+INDIA_CITIES.forEach(city => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "chip";
+  b.textContent = city.name;
+  b.addEventListener("click", () => { q.value = city.name; closeSuggest(); load(city); });
+  chips.appendChild(b);
+});
+
+/* ============================================================
+   JS 8. BOOT — restore last city, else New Delhi
    ============================================================ */
 (function init(){
   let saved = null;
   try{ saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); }catch(_){}
   if (saved && saved.latitude != null){ q.value = saved.name; load(saved); }
-  else { load({ name:"London", country:"United Kingdom", latitude:51.5072, longitude:-0.1276 }); }
+  else { q.value = INDIA_CITIES[0].name; load(INDIA_CITIES[0]); }
 })();
 </script>
 </body>
