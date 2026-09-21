@@ -1,0 +1,161 @@
+/* ============================================================
+   Monsoon Desk — weather.css
+   All styling for the app, organised in numbered sections.
+   ============================================================ */
+
+/* ============================================================
+   1. THEME TOKENS + BASE
+   ============================================================ */
+:root{
+  --bg-a:#0d2b2a; --bg-b:#071a1c;
+  --card:rgba(255,252,244,.07);
+  --card-strong:rgba(255,252,244,.13);
+  --stroke:rgba(255,246,224,.18);
+  --fg:#fdf8ee; --fg-dim:rgba(253,248,238,.62);
+  --accent:#e0a53c;
+  --radius:4px;
+  --shadow:0 12px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:"Work Sans",system-ui,-apple-system,Arial,sans-serif;
+  color:var(--fg);
+  background:linear-gradient(160deg,var(--bg-a),var(--bg-b));
+  background-attachment:fixed;
+  transition:background 900ms ease;
+  min-height:100%;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 56px}
+h1,h2,h3{margin:0;line-height:1.1;font-family:"Instrument Serif",Georgia,serif;font-weight:400;letter-spacing:.2px}
+h3{font-size:1.45rem}
+button{font:inherit;color:inherit;cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ============================================================
+   2. HEADER / SEARCH
+   ============================================================ */
+header{border-bottom:1px solid var(--stroke);padding-bottom:16px;margin-bottom:22px}
+.masthead{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:"Instrument Serif",Georgia,serif;font-size:1.9rem;letter-spacing:.5px}
+.brand em{color:var(--accent);font-style:italic}
+.kicker{font-size:.7rem;text-transform:uppercase;letter-spacing:.22em;color:var(--fg-dim)}
+.tools{display:flex;gap:10px;margin-top:14px;position:relative;flex-wrap:wrap}
+.search{flex:1 1 240px;position:relative}
+input[type=search]{
+  width:100%;padding:12px 14px;border-radius:var(--radius);border:1px solid var(--stroke);
+  border-bottom:2px solid var(--accent);
+  background:var(--card);color:var(--fg);font-size:1rem;outline:none;
+  transition:background .25s,border-color .25s;
+}
+input[type=search]::placeholder{color:var(--fg-dim)}
+input[type=search]:focus{background:var(--card-strong)}
+.icon-btn{
+  border:1px solid var(--stroke);background:transparent;border-radius:var(--radius);
+  padding:0 14px;height:46px;display:inline-flex;align-items:center;gap:8px;
+  transition:transform .15s,background .25s;white-space:nowrap;
+}
+.icon-btn:hover{background:var(--card-strong)}
+.icon-btn:active{transform:scale(.97)}
+.unit{font-weight:700;letter-spacing:.04em}
+.unit span{opacity:.45}
+.unit span.on{opacity:1;color:var(--accent)}
+/* quick India city chips */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center}
+.chips .label{font-size:.7rem;text-transform:uppercase;letter-spacing:.18em;color:var(--fg-dim);margin-right:2px}
+.chip{
+  border:1px solid var(--stroke);background:transparent;border-radius:999px;
+  padding:6px 13px;font-size:.85rem;transition:background .2s,border-color .2s;
+}
+.chip:hover{background:var(--card-strong);border-color:var(--accent)}
+
+/* autocomplete */
+.suggest{
+  position:absolute;top:56px;left:0;right:0;z-index:20;
+  background:rgba(12,22,40,.96);border:1px solid var(--stroke);border-radius:14px;
+  overflow:hidden;box-shadow:var(--shadow);display:none;
+}
+.suggest.open{display:block}
+.suggest button{
+  display:block;width:100%;text-align:left;padding:11px 14px;background:none;border:0;
+  border-bottom:1px solid rgba(255,255,255,.08);font-size:.95rem;
+}
+.suggest button:last-child{border-bottom:0}
+.suggest button:hover,.suggest button:focus{background:rgba(255,255,255,.12);outline:none}
+.suggest small{display:block;color:var(--fg-dim)}
+
+/* ============================================================
+   3. CARDS / LAYOUT
+   ============================================================ */
+.card{
+  background:var(--card);border:1px solid var(--stroke);border-radius:var(--radius);
+  backdrop-filter:blur(10px);box-shadow:var(--shadow);padding:20px;margin-bottom:18px;
+  animation:rise .45s ease both;
+}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.status{text-align:center;padding:26px;font-size:1rem;color:var(--fg-dim)}
+.status.error{color:#ffd0d0}
+.spinner{
+  width:30px;height:30px;margin:0 auto 12px;border-radius:50%;
+  border:3px solid rgba(255,255,255,.25);border-top-color:var(--accent);
+  animation:spin .8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hidden{display:none !important}
+
+/* current */
+.now{display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between}
+.now-main{display:flex;align-items:center;gap:16px}
+.now-ico{font-size:4.2rem;line-height:1}
+.temp{font-size:3.6rem;font-weight:700;letter-spacing:-2px}
+.place{font-size:1.1rem;font-weight:600}
+.meta{color:var(--fg-dim);font-size:.9rem;margin-top:2px}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:4px 10px;
+  border-radius:999px;background:var(--card-strong);border:1px solid var(--stroke);font-size:.8rem;
+}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-top:18px}
+.stat{background:var(--card-strong);border-radius:14px;padding:12px}
+.stat b{display:block;font-size:1.05rem;margin-top:4px}
+.stat span{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--fg-dim)}
+
+/* hourly */
+.strip{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 10px;scroll-snap-type:x proximity}
+.strip::-webkit-scrollbar{height:8px}
+.strip::-webkit-scrollbar-thumb{background:rgba(255,255,255,.28);border-radius:99px}
+.hour{
+  flex:0 0 78px;scroll-snap-align:start;text-align:center;padding:12px 6px;border-radius:14px;
+  background:var(--card-strong);border:1px solid transparent;transition:transform .2s,border-color .2s;
+}
+.hour:hover{transform:translateY(-3px)}
+.hour.current{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset}
+.hour .t{font-size:.78rem;color:var(--fg-dim)}
+.hour .i{font-size:1.5rem;margin:6px 0}
+.hour .d{font-weight:700}
+.hour .p{font-size:.72rem;color:#9fd8ff;margin-top:4px}
+
+/* daily */
+.day{
+  width:100%;display:grid;grid-template-columns:1.2fr auto 1fr auto;gap:12px;align-items:center;
+  background:var(--card-strong);border:1px solid transparent;border-radius:14px;
+  padding:12px 14px;margin-bottom:8px;text-align:left;transition:background .2s;
+}
+.day:hover{background:rgba(255,255,255,.26)}
+.day[aria-expanded=true]{border-color:var(--accent)}
+.day .name{font-weight:600}
+.day .ico{font-size:1.5rem}
+.day .hl{text-align:right;font-variant-numeric:tabular-nums}
+.day .hl small{color:var(--fg-dim);margin-left:6px}
+.day .pop{font-size:.78rem;color:#9fd8ff;min-width:44px;text-align:right}
+.day-panel{overflow:hidden;max-height:0;transition:max-height .35s ease}
+.day-panel.open{max-height:220px}
+.day-panel .strip{margin:2px 0 12px}
+
+footer{text-align:center;color:var(--fg-dim);font-size:.8rem;margin-top:10px}
+@media (max-width:560px){
+  .temp{font-size:3rem}.now-ico{font-size:3.4rem}
+  .day{grid-template-columns:1fr auto auto;}
+  .day .pop{display:none}
+}
