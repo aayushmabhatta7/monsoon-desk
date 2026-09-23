@@ -7,13 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Work+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
-<!-- Styles live in their own file -->
 <link rel="stylesheet" href="weather.css" />
 </head>
 <body>
 <div class="wrap">
 
-  <!-- ===================== HTML STRUCTURE ===================== -->
   <header>
     <div class="masthead">
       <h1 class="brand">Monsoon <em>Desk</em></h1>
@@ -34,7 +32,6 @@
   <div id="status" class="card status hidden"></div>
 
   <main id="app" class="hidden">
-    <!-- Current weather -->
     <section class="card" aria-labelledby="nowTitle">
       <h2 id="nowTitle" class="sr">Current weather</h2>
       <div class="now">
@@ -60,13 +57,11 @@
       </div>
     </section>
 
-    <!-- Hourly -->
     <section class="card">
       <h3>Next 24 hours</h3>
       <div id="hourly" class="strip"></div>
     </section>
 
-    <!-- Daily -->
     <section class="card">
       <h3>5-day forecast</h3>
       <div id="daily" style="margin-top:12px"></div>
@@ -76,7 +71,6 @@
   <footer>Readings from Open-Meteo · clocks follow each city's local time</footer>
 </div>
 
-<!-- App logic lives in its own file -->
 <script src="weather.js"></script>
 </body>
 </html>

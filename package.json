@@ -1,5 +1,6 @@
 {
-  "name": "tanstack_start_ts",
+  "name": "monsoon-desk",
+  "description": "A focused weather dashboard for current conditions and forecasts.",
   "private": true,
   "sideEffects": false,
   "type": "module",
@@ -70,7 +71,6 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
-    "@lovable.dev/vite-tanstack-config": "^2.23.1",
     "@types/node": "^22.16.5",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",

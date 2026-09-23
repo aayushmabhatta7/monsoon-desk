@@ -1,12 +1,3 @@
-/* ============================================================
-   Monsoon Desk — weather.js
-   All app logic, organised in numbered sections.
-   Data: Open-Meteo (no API key needed).
-   ============================================================ */
-
-/* ============================================================
-   JS 1. CONSTANTS & WMO CODE MAP
-   ============================================================ */
 const GEO_URL = "https://geocoding-api.open-meteo.com/v1/search";
 const FORECAST_URL = "https://api.open-meteo.com/v1/forecast";
 const STORE_KEY = "skycast:last";
@@ -58,9 +49,6 @@ const THEMES = {
   fog:{day:["#8e9aa4","#4c565f"],night:["#2b3238","#12161a"]}
 };
 
-/* ============================================================
-   JS 2. STATE & HELPERS
-   ============================================================ */
 let unit = localStorage.getItem(UNIT_KEY) === "F" ? "F" : "C";
 let data = null;      // last forecast payload
 let place = null;     // {name, country, admin1, latitude, longitude}
@@ -87,9 +75,6 @@ function applyTheme(group, isDay){
   document.body.style.backgroundAttachment = "fixed";
 }
 
-/* ============================================================
-   JS 3. API CALLS
-   ============================================================ */
 async function geocode(name){
   // English names, wider result set so Indian towns aren't crowded out.
   const url = `${GEO_URL}?name=${encodeURIComponent(name)}&count=10&language=en&format=json`;
@@ -122,9 +107,6 @@ async function getForecast(lat, lon){
   return res.json();
 }
 
-/* ============================================================
-   JS 4. LOAD ORCHESTRATION
-   ============================================================ */
 async function load(p){
   place = p;
   showStatus(`Loading weather for ${p.name}…`);
@@ -141,9 +123,6 @@ async function load(p){
   }
 }
 
-/* ============================================================
-   JS 5. RENDERING
-   ============================================================ */
 function render(){
   const c = data.current, u = data.current_units;
   const isDay = c.is_day === 1;
@@ -234,9 +213,6 @@ function dayHours(dateStr){
   return html || '<div class="status">No hourly data.</div>';
 }
 
-/* ============================================================
-   JS 6. EVENT HANDLERS
-   ============================================================ */
 const q = $("q"), suggest = $("suggest");
 
 function closeSuggest(){ suggest.classList.remove("open"); q.setAttribute("aria-expanded","false"); }
@@ -311,9 +287,6 @@ $("uF").classList.toggle("on", unit === "F");
 
 window.addEventListener("online", () => { if (place) load(place); });
 
-/* ============================================================
-   JS 7. QUICK INDIAN CITIES
-   ============================================================ */
 const INDIA_CITIES = [
   { name:"New Delhi", admin1:"Delhi", country:"India", latitude:28.6139, longitude:77.2090 },
   { name:"Mumbai", admin1:"Maharashtra", country:"India", latitude:19.0760, longitude:72.8777 },
@@ -334,9 +307,6 @@ INDIA_CITIES.forEach(city => {
   chips.appendChild(b);
 });
 
-/* ============================================================
-   JS 8. BOOT — restore last city, else New Delhi
-   ============================================================ */
 (function init(){
   let saved = null;
   try{ saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null"); }catch(_){}

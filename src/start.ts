@@ -17,9 +17,7 @@ const errorMiddleware = createMiddleware().server(async ({ next }) => {
   }
 });
 
-// Start installs this automatically when src/start.ts is absent; defining the
-// file opts out, so re-add it explicitly to keep server functions protected
-// from cross-site requests.
+// Re-add CSRF protection because defining this file opts out of Start's automatic middleware.
 const csrfMiddleware = createCsrfMiddleware({
   filter: (ctx) => ctx.handlerType === "serverFn",
 });
